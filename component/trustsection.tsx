@@ -220,83 +220,55 @@ export default function TrustSection() {
             background: `linear-gradient(135deg, ${SAGE}33, ${ROSE}22, transparent 60%)`,
           }} />
 
-          {/* placeholder panel */}
+          {/* Instagram Reel panel */}
           <div style={{
             position: "relative",
             borderRadius: "24px",
             overflow: "hidden",
             aspectRatio: "4 / 5",
-            background: "#f6f2ec",
+            background: "#0f0b0d",
             border: "1px solid rgba(0,0,0,0.07)",
             boxShadow: "0 24px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "16px",
           }}>
 
             {/* top accent bar */}
             <div style={{
-              position: "absolute", top: 0, left: 0, right: 0, height: "3px",
+              position: "absolute", top: 0, left: 0, right: 0, height: "3px", zIndex: 2,
               background: `linear-gradient(90deg, ${SAGE_DEEP}, ${SAGE}, ${ROSE})`,
               borderRadius: "24px 24px 0 0",
             }} />
 
             {/* corner marks */}
             <div aria-hidden style={{
-              position: "absolute", top: "18px", left: "18px",
+              position: "absolute", top: "18px", left: "18px", zIndex: 2,
               width: "28px", height: "28px",
               borderTop: `1.5px solid ${SAGE}66`,
               borderLeft: `1.5px solid ${SAGE}66`,
               borderRadius: "4px 0 0 0",
             }} />
             <div aria-hidden style={{
-              position: "absolute", bottom: "18px", right: "18px",
+              position: "absolute", bottom: "18px", right: "18px", zIndex: 2,
               width: "28px", height: "28px",
               borderBottom: `1.5px solid ${ROSE}55`,
               borderRight: `1.5px solid ${ROSE}55`,
               borderRadius: "0 0 4px 0",
             }} />
 
-            {/* icon */}
-            <div style={{
-              width: "64px", height: "64px", borderRadius: "18px",
-              background: "#ffffff",
-              border: `1px solid rgba(0,0,0,0.08)`,
-              boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <rect x="3" y="3" width="22" height="22" rx="5" stroke={SAGE} strokeWidth="1.5" strokeDasharray="3 2" />
-                <circle cx="14" cy="12" r="4" stroke={SAGE} strokeWidth="1.3" />
-                <path d="M6 24c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke={SAGE} strokeWidth="1.3" strokeLinecap="round" />
-              </svg>
-            </div>
-
-            <div style={{ textAlign: "center", padding: "0 24px" }}>
-              <p style={{
-                fontSize: "var(--fs-eyebrow)", fontWeight: 700,
-                letterSpacing: "0.22em", textTransform: "uppercase",
-                color: "rgba(36,31,33,0.3)", marginBottom: "6px",
-              }}>
-                Image / Media
-              </p>
-              <p style={{
-                fontSize: "var(--fs-small)", color: "rgba(36,31,33,0.25)",
-                lineHeight: 1.55,
-              }}>
-                Link will be updated here
-              </p>
-            </div>
-
-            {/* pulse dot */}
-            <div style={{
-              width: "8px", height: "8px", borderRadius: "50%",
-              background: SAGE,
-              boxShadow: `0 0 10px ${SAGE}88`,
-              animation: "trustPulse 2.2s ease-in-out infinite",
-            }} />
+            <iframe
+              src="https://www.instagram.com/reel/DV3M2Y7kSWK/embed/?autoplay=1&muted=1"
+              scrolling="no"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              title="Sudha Clinic Instagram Reel"
+            />
 
           </div>
         </div>

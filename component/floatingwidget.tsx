@@ -110,13 +110,9 @@ export default function FloatingWidget() {
             }}
           >
             <span className="fw-call-bell">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <path d="M4.5 4.5C6.2 2.8 8.5 2 11 2s4.8.8 6.5 2.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M7.5 7.5C8.5 6.5 9.7 6 11 6s2.5.5 3.5 1.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
-                <path fillRule="evenodd" clipRule="evenodd"
-                  d="M7.26 9.26a5.5 5.5 0 017.48 0l.88.88a1 1 0 010 1.41l-1.5 1.5a1 1 0 01-1.41 0l-.44-.44a3.5 3.5 0 01-2.54 0l-.44.44a1 1 0 01-1.41 0l-1.5-1.5a1 1 0 010-1.41l.88-.88z"
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"
                   fill="#fff"/>
-                <path d="M11 17v2M8 20h6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </span>
           </div>
