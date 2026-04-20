@@ -65,16 +65,19 @@ export default function FloatingWidget() {
         .fw-call-icon  { animation: callPulse 3.0s ease-out infinite 1.2s; }
 
         .fw-call-bell  { animation: callRing  2.4s ease-in-out infinite 1.8s; display:inline-block; }
+
+        @media (max-width: 767px) {
+          .fw-long-text { display: none; }
+        }
       `}</style>
 
-      <div style={{
+      <div className="max-sm:gap-0 gap-2" style={{
         position: "fixed",
         right: "0px",
         bottom: "10px",
         zIndex: 9000,
         display: "flex",
         flexDirection: "column",
-        gap: "14px",
         pointerEvents: "none",
       }}>
 
@@ -135,7 +138,7 @@ export default function FloatingWidget() {
               boxShadow: "0 0 6px rgba(249,115,22,0.7)",
             }} />
             <span style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a2e", lineHeight: 1.3 }}>
-             Get Special offers on all treatments
+             Get Special offers<span className="fw-long-text"> on all treatments</span>
             </span>
           </div>
         </a>
@@ -145,13 +148,14 @@ export default function FloatingWidget() {
           href="https://wa.me/919553033366"
           target="_blank"
           rel="noopener noreferrer"
-          className="fw-wa"
+          className="fw-wa max-sm:mb-10"
           onMouseEnter={() => setWaHov(true)}
           onMouseLeave={() => setWaHov(false)}
           style={{
             pointerEvents: "all",
             display: "flex",
             alignItems: "center",
+            justifyContent: 'flex-end',
             textDecoration: "none",
             filter: waHov
               ? "drop-shadow(0 8px 24px rgba(37,211,102,0.28))"
@@ -161,7 +165,7 @@ export default function FloatingWidget() {
         >
           {/* Icon circle */}
           <div
-            className="fw-wa-icon"
+            className="fw-wa-icon "
             style={{
               width: "52px", height: "52px", borderRadius: "50%",
               background: "linear-gradient(135deg, #1ebe5d, #25d366)",

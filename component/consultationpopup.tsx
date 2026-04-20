@@ -102,7 +102,7 @@ export default function ConsultationPopup() {
         style={{
           width: "min(760px, 100%)",
           maxHeight: "92vh",
-          overflow: "hidden",
+          overflowY: "auto",
           borderRadius: "20px",
           position: "relative",
           boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
@@ -114,22 +114,22 @@ export default function ConsultationPopup() {
           aria-label="Close consultation popup"
           style={{
             position: "sticky",
-            top: "12px",
-            left: "calc(100% - 48px)",
+            top: "10px",
+            left: "calc(100% - 46px)",
             zIndex: 20,
-            width: "36px",
-            height: "36px",
+            width: "34px",
+            height: "34px",
             borderRadius: "50%",
             border: "1px solid rgba(255,255,255,0.16)",
             background: "rgba(15,11,13,0.85)",
             color: "#fff",
             cursor: "pointer",
-            fontSize: "22px",
+            fontSize: "20px",
             lineHeight: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: "-36px",
+            marginBottom: "-34px",
           }}
         >
           ×
@@ -176,6 +176,30 @@ export default function ConsultationPopup() {
         .popup-contact-form .contact-submit-row {
           margin-top: 10px !important;
           padding-top: 10px !important;
+        }
+
+        @media (max-width: 767px) {
+          .popup-contact-form .contact-inner {
+            padding: 0 10px !important;
+          }
+          .popup-contact-form .contact-field-grid {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+          .popup-contact-form .contact-form-body {
+            padding: 12px 10px 14px !important;
+          }
+          .popup-contact-form .contact-submit-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .popup-contact-form .contact-submit-row button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .popup-contact-form #contact {
+            padding: 12px 0 16px !important;
+          }
         }
       `}</style>
     </div>

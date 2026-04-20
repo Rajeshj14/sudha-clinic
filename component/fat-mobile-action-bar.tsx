@@ -12,7 +12,7 @@ export default function MobileActionBar() {
     >
       {/* Call Now */}
       <a
-        href="tel:+919876543210"
+        href="tel:+919553033366"
         className="
           flex-1 flex items-center justify-center gap-2
           py-4 font-semibold text-white

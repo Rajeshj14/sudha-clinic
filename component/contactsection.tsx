@@ -531,99 +531,42 @@ export default function ContactSection() {
               </div>
             </div>
           </div>
-
-          {/* ── IMAGE PANEL ── */}
-          <div className="contact-img-panel" style={{ display: "none" }}>
-            {/* offset shadow frame */}
-            <div style={{
-              position: "absolute", top: "14px", left: "14px",
-              width: "100%", height: "100%",
-              border: "1px solid rgba(94,154,113,0.2)", zIndex: 0,
-              borderRadius: "20px",
-            }} />
-
-            {/* corner brackets */}
-            {([
-              { top: 0, left: 0,    points: "28,2 2,2 2,28"   },
-              { top: 0, right: 0,   points: "0,2 26,2 26,28"  },
-              { bottom: 0, left: 0, points: "28,26 2,26 2,0"  },
-              { bottom: 0, right: 0, points: "0,26 26,26 26,0" },
-            ] as const).map((corner, i) => (
-              <svg key={i} style={{ position: "absolute", ...corner, zIndex: 8 }} width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <polyline points={corner.points} stroke={SAGE} strokeWidth="2.8" fill="none" opacity="0.8"/>
-              </svg>
-            ))}
-
-            <div className="contact-img-card" style={{
-              position: "relative", height: "100%", minHeight: "520px",
-              overflow: "hidden", background: "#1a1416", zIndex: 1,
-              borderRadius: "16px",
-              boxShadow: "0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
-            }}>
-              <img
-                className="contact-img"
-                src={contactImage}
-                alt={contactImageAlt}
-                style={{
-                  width: "100%", height: "100%", minHeight: "520px",
-                  objectFit: "cover", objectPosition: "center", display: "block",
-                  filter: "brightness(0.65) saturate(0.85) contrast(1.05)",
-                  transition: "opacity 0.25s ease, filter 0.25s ease",
-                }}
-                onError={e => { (e.target as HTMLImageElement).style.opacity = "0"; }}
-              />
-
-              {/* dark overlay gradient */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(10,7,9,0.6) 65%, rgba(10,7,9,0.95) 100%)" }} />
-              <div style={{ position: "absolute", inset: 0, backgroundImage: GRAIN, backgroundSize: "200px 200px", opacity: 0.12, mixBlendMode: "screen" }} />
-
-              {/* info cards stacked */}
-              <div style={{
-                position: "absolute", left: "22px", right: "22px", bottom: "22px",
-                display: "flex", flexDirection: "column", gap: "10px", zIndex: 5,
-              }}>
-                {/* stat pills row */}
-                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                  {[
-                    { label: "200+", sub: "Google Reviews" },
-                    { label: "5000+", sub: "Happy Patients" },
-                    { label: "10+", sub: "Years Experience" },
-                  ].map(stat => (
-                    <div key={stat.label} style={{
-                      background: "rgba(255,255,255,0.08)",
-                      backdropFilter: "blur(12px)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      borderRadius: "10px", padding: "8px 14px",
-                      flex: 1, minWidth: "80px",
-                    }}>
-                      <p style={{ margin: 0, fontSize: "var(--fs-subtitle)", fontWeight: 900, color: "#fffdfa", lineHeight: 1 }}>{stat.label}</p>
-                      <p style={{ margin: "3px 0 0 0", fontSize: "9.5px", fontWeight: 600, color: "rgba(255,253,250,0.5)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{stat.sub}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* caption card */}
-                <div style={{
-                  background: "rgba(255,255,255,0.06)",
-                  backdropFilter: "blur(14px)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderLeft: `3px solid ${SAGE}`,
-                  borderRadius: "12px",
-                  padding: "16px 18px",
-                }}>
-                  <p style={{ margin: "0 0 5px 0", fontSize: "var(--fs-body)", fontWeight: 800, color: "#fffdfa", lineHeight: 1.2 }}>
-                    Personalised guidance from consultation to care plan
-                  </p>
-                  <p style={{ margin: 0, fontSize: "var(--fs-small)", lineHeight: 1.6, color: "rgba(255,253,250,0.5)" }}>
-                    Expert recommendations, follow-up support, and visible results — all in one place.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .contact-inner {
+            padding: 0 16px !important;
+          }
+          .contact-heading {
+            margin-bottom: 18px !important;
+          }
+          .contact-field-grid {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+          .contact-form-body {
+            padding: 14px 12px 16px !important;
+          }
+          .contact-form-stack {
+            gap: 8px !important;
+          }
+          .contact-submit-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 10px !important;
+          }
+          .contact-submit-row button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .contact-submit-row p {
+            max-width: 100% !important;
+            text-align: center !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
