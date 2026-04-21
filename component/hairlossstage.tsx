@@ -426,7 +426,7 @@ function BookingPopup({
       });
       const data = await res.json();
       if (data.success) {
-        window.location.href = isHair ? "/thank-you-hair" : "/thank-you-skin";
+        window.location.href = isHair ? "/thank-you-hair-stage" : "/thank-you-skin-stage";
       } else {
         setFieldError("Something went wrong. Please try again.");
       }
