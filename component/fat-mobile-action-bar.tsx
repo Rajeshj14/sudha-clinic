@@ -45,7 +45,7 @@ export default function MobileActionBar() {
           flex-1 flex items-center justify-center gap-2
           py-4 font-semibold
           text-white
-          bg-gradient-to-r from-[#a94d7f] to-[var(--rose)]
+          bg-gradient-to-r from-[#b72c78] to-[var(--rose)]
           text-sm
           border-l border-white/35
           active:scale-95 transition

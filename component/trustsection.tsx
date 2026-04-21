@@ -29,7 +29,7 @@ const TRUST_ITEMS = [
       </svg>
     ),
     accent: ROSE,
-    accentDp: "#a94d7f",
+    accentDp: "#b72c78",
     glowColor: "rgba(200,107,155,0.18)",
     label: "FDA-Approved Technology",
     headline: "Rigorously tested. Proven safe.",
@@ -124,7 +124,7 @@ function TrustCard({ item, index }: { item: typeof TRUST_ITEMS[0]; index: number
 
 export default function TrustSection() {
   return (
-    <section className="mt-10" style={{
+    <section className="mt-10 pb-8" style={{
       position: "relative", width: "100%",
       overflow: "hidden",
 

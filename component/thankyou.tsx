@@ -29,7 +29,7 @@ const secondaryLinkStyle = {
   justifyContent: "center",
   padding: "14px 26px",
   background: "transparent",
-  color: "#a94d7f",
+  color: "#b72c78",
   textDecoration: "none",
   textTransform: "uppercase" as const,
   letterSpacing: "0.18em",
@@ -127,7 +127,7 @@ export default function ThankYou({
             />
             <span
               style={{
-                color: "#a94d7f",
+                color: "#b72c78",
                 fontSize: "11px",
                 fontWeight: 700,
                 textTransform: "uppercase",

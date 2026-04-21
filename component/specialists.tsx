@@ -156,18 +156,26 @@ function FeaturedCard({ doctor }: { doctor: typeof DOCTORS[0] }) {
         <a
           href="#contact"
           style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            background: "rgba(94,154,113,0.9)", color: "#fff",
-            border: "none", borderRadius: "8px",
-            padding: "10px 22px", fontSize: "var(--fs-eyebrow)", fontWeight: 700,
-            letterSpacing: "0.1em", textTransform: "uppercase",
-            textDecoration: "none", cursor: "pointer",
-            transition: "background 0.2s",
+            display: "inline-flex", alignItems: "center", gap: "10px",
+            background: "transparent",
+            color: "#5e9a71",
+            border: "2px solid rgba(94,154,113,0.6)",
+            borderRadius: 0,
+            padding: "10px 26px",
+            fontSize: "var(--fs-eyebrow)", fontWeight: 700,
+            letterSpacing: "0.14em", textTransform: "uppercase",
+            cursor: "pointer",
+            transition: "all 0.2s",
+            outline: "1.5px solid rgba(94,154,113,0.18)",
+            outlineOffset: "5px",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+            textDecoration: "none",
           }}
         >
           Book Consultation
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </a>
       </div>
@@ -386,6 +394,8 @@ function MobileCarousel() {
 }
 
 export default function Specialists() {
+  const [btnHover, setBtnHover] = useState(false);
+
   return (
     <>
       <style>{`
@@ -560,27 +570,32 @@ export default function Specialists() {
           <p style={{ fontSize: "var(--fs-small)", color: "rgba(255,253,250,0.38)", letterSpacing: "0.06em" }}>
             Choose Your Skin/Hair Concern
           </p>
+
           <a
             href="#contact"
+            onMouseEnter={() => setBtnHover(true)}
+            onMouseLeave={() => setBtnHover(false)}
             style={{
-              display: "inline-flex", alignItems: "center", gap: "10px",
-              background: "transparent",
-              color: "#5e9a71",
-              border: "2px solid rgba(94,154,113,0.6)",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: btnHover ? "#b72c78" : "transparent",
+              color: btnHover ? "#ffffff" : "#5e9a71",
+              border: "2.5px solid #5e9a71",
               borderRadius: 0,
-              padding: "10px 28px",
-              fontSize: "var(--fs-eyebrow)", fontWeight: 700,
-              letterSpacing: "0.14em", textTransform: "uppercase",
+              padding: "10px 24px",
+              fontSize: "var(--fs-eyebrow)",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              cursor: "pointer",
               textDecoration: "none",
-              outline: "1.5px solid rgba(94,154,113,0.18)",
+              transition: "background 0.18s, color 0.18s",
+              outline: "1.5px solid rgba(94,154,113,0.24)",
               outlineOffset: "5px",
-              transition: "background 0.2s, color 0.2s",
             }}
           >
-            Book Your Consultation
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            Book Consultation
           </a>
         </div>
       </section>

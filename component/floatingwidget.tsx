@@ -81,7 +81,6 @@ export default function FloatingWidget() {
         pointerEvents: "none",
       }}>
 
-        {/* ══ Call pill ══ */}
         <a
           href="tel:+919553033366"
           className="fw-call"
@@ -138,8 +137,6 @@ export default function FloatingWidget() {
             </span>
           </div>
         </a>
-
-        {/* ══ WhatsApp pill ══ */}
         <a
           href="https://wa.me/919553033366"
           target="_blank"
@@ -198,7 +195,6 @@ export default function FloatingWidget() {
             </span>
           </div>
         </a>
-
       </div>
     </>
   );

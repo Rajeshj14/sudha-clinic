@@ -90,7 +90,7 @@ export default function Navbar() {
                 onClick={() => setActiveLink(label)}
                 className={`rounded-full px-4 py-2 text-[12px] font-medium uppercase tracking-[0.16em] ${
                   isActive
-                    ? "bg-[#f3e1ea] text-[#a94d7f]"
+                    ? "bg-[#f3e1ea] text-[#b72c78]"
                     : "text-[#5b5558] hover:bg-[#f7f2ed] hover:text-[#3f7455]"
                 }`}
               >
@@ -106,7 +106,7 @@ export default function Navbar() {
             onMouseEnter={() => setBtnHover(true)}
             onMouseLeave={() => setBtnHover(false)}
             style={{
-              background: btnHover ? "#a94d7f" : "transparent",
+              background: btnHover ? "#b72c78" : "transparent",
               color: btnHover ? "#ffffff" : "#5e9a71",
               border: "2.5px solid #5e9a71",
               borderRadius: 0,
@@ -175,7 +175,7 @@ export default function Navbar() {
                   }}
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 text-[11.5px] font-medium uppercase tracking-[0.12em] ${
                     isActive
-                      ? "bg-[#f3e1ea] text-[#a94d7f]"
+                      ? "bg-[#f3e1ea] text-[#b72c78]"
                       : "bg-white/70 text-[#5b5558] hover:text-[#3f7455]"
                   }`}
                 >
@@ -194,7 +194,7 @@ export default function Navbar() {
             onMouseEnter={() => setBtnHover(true)}
             onMouseLeave={() => setBtnHover(false)}
             style={{
-              background: btnHover ? "#a94d7f" : "transparent",
+              background: btnHover ? "#b72c78" : "transparent",
               color: btnHover ? "#ffffff" : "#5e9a71",
               border: "2.5px solid #5e9a71",
               borderRadius: 0,

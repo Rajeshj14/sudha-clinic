@@ -234,7 +234,7 @@ export default function Footer() {
             borderTop: "1px solid rgba(255,255,255,0.1)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             gap: "12px",
             flexWrap: "wrap",
           }}
@@ -242,16 +242,12 @@ export default function Footer() {
           <span style={{ color: "rgba(255,253,250,0.62)", fontSize: "var(--fs-small)" }}>
             Copyright 2026 Sudha Aesthetics. All rights reserved.
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <a href="#contact" style={{ color: "#c86b9b", textDecoration: "none", fontSize: "var(--fs-small)" }}>
-              Book Consultation
-            </a>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px",justifyContent: "flex-start" }}>
+
             <Link href="/privacy-policy" style={{ color: "rgba(255,253,250,0.72)", textDecoration: "none", fontSize: "var(--fs-small)" }}>
               Privacy
             </Link>
-            <a href="#" style={{ color: "rgba(255,253,250,0.72)", textDecoration: "none", fontSize: "var(--fs-small)" }}>
-              Terms
-            </a>
+
           </div>
         </div>
       </div>

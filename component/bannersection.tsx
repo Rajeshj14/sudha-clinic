@@ -19,13 +19,13 @@ const TYPING_PHRASES = [
 
 const IMAGES = [
   {
-    src: "/professional-woman.jpg",
+    src: "/name.jpeg",
     fallback: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900&q=90",
     label: "Skin Care",
     sublabel: "Expert Dermatologist Consult",
   },
   {
-    src: "/adult-male-having-balding-problems.jpg",
+    src: "/names.jpeg",
     fallback: "",
     label: "Hair Care",
     sublabel: "Advanced Hair Restoration",
@@ -62,8 +62,8 @@ export default function BannerSection() {
         alignItems: "center",
         minHeight: "680px",
         backgroundImage:
-          "url('/adult-male-having-balding-problems.jpg'), url('/rejuvenating-facial-treatment.jpg')",
-        backgroundSize: "50% 100%, 50% 100%",
+          "url('/unnamed.webp')",
+        backgroundSize: "100%",
         backgroundPosition: "left center, right center",
         backgroundRepeat: "no-repeat, no-repeat",
       }}
@@ -461,7 +461,7 @@ export default function BannerSection() {
                   fontWeight: 700,
                 }}
               >
-                Skin &amp; Hair Clinic
+                Best Skin & Hair Clinic in Kakinada
               </span>
             </div>
             <h1
@@ -595,7 +595,7 @@ export default function BannerSection() {
                   ))}
                 </div>
                 <span className="banner-rating-text" style={{ fontSize: "var(--fs-body)", color: "#5b5558", fontWeight: 700 }}>
-                  4.9 · 200+ Google Reviews
+                  4.7 · 200+ Google Reviews
                 </span>
               </div>
             </div>
@@ -607,8 +607,8 @@ export default function BannerSection() {
                 onMouseEnter={() => setBtnHover(true)}
                 onMouseLeave={() => setBtnHover(false)}
                 style={{
-                  background: btnHover ? "#5e9a71" : "transparent",
-                  color: btnHover ? "#ffffff" : "#5e9a71",
+                  background: btnHover ? "#b72c78" : "#5e9a71",
+                  color: btnHover ? "#ffffff" : "#ffffff",
                   border: "2.5px solid #5e9a71",
                   borderRadius: 0,
                   padding: "13px 30px",

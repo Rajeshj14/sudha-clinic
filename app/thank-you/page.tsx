@@ -4,15 +4,19 @@ import ThankYou from "@/component/thankyou";
 import Navbared from "@/component/thank-navbar";
 
 export const metadata: Metadata = {
-  title: "Thank You | Sudha Aesthetics",
-  description: "Confirmation page for consultation and enquiry submissions.",
+  title: "Thank You | Sudha Aesthetics Skin Consultation",
+  description: "Confirmation page for skin consultation submissions.",
 };
 
 export default function ThankYouPage() {
   return (
     <>
       <Navbared />
-      <ThankYou />
+      <ThankYou
+        eyebrow="Skin Consultation Received"
+        title="Thank you for booking your skin consultation."
+        message="Your skin consultation request has been received. Our dermatology specialists will review your details and reach out shortly to guide you on the best treatment path."
+      />
       <Footer />
     </>
   );

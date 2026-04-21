@@ -83,7 +83,7 @@ export default function PrivacyPolicyPage() {
               />
               <span
                 style={{
-                  color: "#a94d7f",
+                  color: "#b72c78",
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.24em",
@@ -194,7 +194,7 @@ export default function PrivacyPolicyPage() {
                 If you need help with your personal data, you can reach the clinic team at{" "}
                 <a
                   href="mailto:hello@sudhaaesthetics.com"
-                  style={{ color: "#a94d7f", textDecoration: "none" }}
+                  style={{ color: "#b72c78", textDecoration: "none" }}
                 >
                   hello@sudhaaesthetics.com
                 </a>{" "}
@@ -234,7 +234,7 @@ export default function PrivacyPolicyPage() {
                     justifyContent: "center",
                     padding: "14px 24px",
                     background: "transparent",
-                    color: "#a94d7f",
+                    color: "#b72c78",
                     textDecoration: "none",
                     textTransform: "uppercase",
                     letterSpacing: "0.18em",

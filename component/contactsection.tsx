@@ -20,10 +20,16 @@ const SKIN_STAGE_IMAGES = [
   "/images4.png",
   "/images5.png",
 ];
+const SKIN_CONCERN_STAGE_IMAGES: Record<string, string[]> = {
+  "Acne / Breakouts":          ["/images1.png",  "/images2.png",  "/images3.png",  "/images4.png",  "/images5.png"],
+  "Pigmentation / Dark Spots": ["/shakura-pigmentation-stages.jpeg",   "/shakura-pigmentation-stages1.jpeg",   "/shakura-pigmentation-stages2.jpeg",   "/shakura-pigmentation-stages3.jpeg",   "/shakura-pigmentation-stages4.png"],
+  "Anti-Aging / Fine Lines":   ["/wrikingle.png",  "/wrikingle1.png",  "/wrikingle2.png",  "/wrikingle3.png",  "/wrikingle4.png"],
+  "Other":                      SKIN_STAGE_IMAGES,
+};
 const SAGE      = "#5e9a71";
 const SAGE_DEEP = "#4f8562";
 const ROSE      = "#c86b9b";
-const ROSE_DEEP = "#a94d7f";
+const ROSE_DEEP = "#b72c78";
 const SK_BASE   = "#f2c8a8";
 const SK_SEL    = "#f5d0b4";
 const HR_COL    = "#2a1c10";
@@ -210,8 +216,9 @@ const inputBase: React.CSSProperties = {
   transition: "border-color 0.2s",
 };
 
-function Field({ label, placeholder, as = "input", accent = SAGE }: {
+function Field({ label, placeholder, as = "input", accent = SAGE, value, onChange }: {
   label: string; placeholder: string; as?: "input" | "textarea"; accent?: string;
+  value?: string; onChange?: (v: string) => void;
 }) {
   return (
     <label style={{ display: "block" }}>
@@ -223,17 +230,18 @@ function Field({ label, placeholder, as = "input", accent = SAGE }: {
         {label}
       </span>
       {as === "textarea" ? (
-        <textarea placeholder={placeholder} rows={4}
+        <textarea placeholder={placeholder} rows={4} value={value ?? ""} onChange={e => onChange?.(e.target.value)}
           style={{ ...inputBase, resize: "vertical", minHeight: "100px" }} />
       ) : (
-        <input placeholder={placeholder} style={inputBase} />
+        <input placeholder={placeholder} value={value ?? ""} onChange={e => onChange?.(e.target.value)} style={inputBase} />
       )}
     </label>
   );
 }
 
-function SelectField({ label, options, accent = SAGE }: {
+function SelectField({ label, options, accent = SAGE, value, onChange }: {
   label: string; options: string[]; accent?: string;
+  value?: string; onChange?: (v: string) => void;
 }) {
   return (
     <label style={{ display: "block" }}>
@@ -245,7 +253,7 @@ function SelectField({ label, options, accent = SAGE }: {
         {label}
       </span>
       <div style={{ position: "relative" }}>
-        <select defaultValue="" style={{
+        <select value={value ?? ""} onChange={e => onChange?.(e.target.value)} style={{
           ...inputBase, appearance: "none",
           WebkitAppearance: "none",
           paddingRight: "38px", cursor: "pointer",
@@ -262,18 +270,22 @@ function SelectField({ label, options, accent = SAGE }: {
   );
 }
 
+interface FormFields {
+  name: string; phone: string; email: string; concern: string;
+  stage: number | null; message: string;
+}
+
 /* ── Hair Form ── */
-function HairForm() {
-  const [hairStage, setHairStage] = useState<number | null>(null);
+function HairForm({ values, onChange }: { values: FormFields; onChange: (k: keyof FormFields, v: any) => void }) {
   return (
     <div className="contact-form-stack" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       <div className="contact-field-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "10px" }}>
-        <Field label="Full Name"    placeholder="Enter your name"   accent={SAGE} />
-        <Field label="Phone Number" placeholder="Enter your number" accent={SAGE} />
+        <Field label="Full Name"    placeholder="Enter your name"   accent={SAGE} value={values.name}  onChange={v => onChange("name", v)} />
+        <Field label="Phone Number" placeholder="Enter your number" accent={SAGE} value={values.phone} onChange={v => onChange("phone", v)} />
       </div>
       <div className="contact-field-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "10px" }}>
-        <Field label="Email Address" placeholder="Enter your email" accent={SAGE} />
-        <SelectField label="Hair Concern" accent={SAGE} options={[
+        <Field label="Email Address" placeholder="Enter your email" accent={SAGE} value={values.email}   onChange={v => onChange("email", v)} />
+        <SelectField label="Hair Concern" accent={SAGE} value={values.concern} onChange={v => onChange("concern", v)} options={[
           "Hair Fall / Thinning", "Receding Hairline", "Scalp Issues",
           "Hair Transplant", "Other",
         ]} />
@@ -281,63 +293,107 @@ function HairForm() {
       <StagePicker
         label="Select Hair Loss Stage"
         stages={HAIR_STAGE_DATA}
-        selected={hairStage}
-        onSelect={n => setHairStage(n === -1 ? null : n)}
+        selected={values.stage}
+        onSelect={n => onChange("stage", n === -1 ? null : n)}
         accent={SAGE} accentDp={SAGE_DEEP}
         imagePaths={HAIR_STAGE_IMAGES}
         imageAltPrefix="Hair loss"
       />
       <div className="contact-message">
-        <Field label="Message" placeholder="Describe your hair concern in detail" as="textarea" accent={SAGE} />
+        <Field label="Message" placeholder="Describe your hair concern in detail" as="textarea" accent={SAGE} value={values.message} onChange={v => onChange("message", v)} />
       </div>
     </div>
   );
 }
 
 /* ── Skin Form ── */
-function SkinForm() {
-  const [skinStage, setSkinStage] = useState<number | null>(null);
+function SkinForm({ values, onChange }: { values: FormFields; onChange: (k: keyof FormFields, v: any) => void }) {
+  const stageImages = (values.concern && SKIN_CONCERN_STAGE_IMAGES[values.concern]) || SKIN_STAGE_IMAGES;
   return (
     <div className="contact-form-stack" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       <div className="contact-field-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "10px" }}>
-        <Field label="Full Name"    placeholder="Enter your name"   accent={ROSE} />
-        <Field label="Phone Number" placeholder="Enter your number" accent={ROSE} />
+        <Field label="Full Name"    placeholder="Enter your name"   accent={ROSE} value={values.name}  onChange={v => onChange("name", v)} />
+        <Field label="Phone Number" placeholder="Enter your number" accent={ROSE} value={values.phone} onChange={v => onChange("phone", v)} />
       </div>
       <div className="contact-field-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "10px" }}>
-        <Field label="Email Address" placeholder="Enter your email" accent={ROSE} />
-        <SelectField label="Skin Concern" accent={ROSE} options={[
-          "Acne / Breakouts", "Pigmentation / Dark Spots", "Dullness / Uneven Tone",
-          "Anti-Aging / Fine Lines", "Carbon Laser Treatment", "Other",
+        <Field label="Email Address" placeholder="Enter your email" accent={ROSE} value={values.email}   onChange={v => onChange("email", v)} />
+        <SelectField label="Skin Concern" accent={ROSE} value={values.concern} onChange={v => { onChange("concern", v); onChange("stage", null); }} options={[
+          "Acne / Breakouts", "Pigmentation / Dark Spots",
+          "Anti-Aging / Fine Lines", "Other",
         ]} />
       </div>
       <StagePicker
-        label="Select Skin Concern Stage"
+        label={values.concern ? `${values.concern} — Select Stage` : "Select Skin Concern Stage"}
         stages={SKIN_STAGE_DATA}
-        selected={skinStage}
-        onSelect={n => setSkinStage(n === -1 ? null : n)}
+        selected={values.stage}
+        onSelect={n => onChange("stage", n === -1 ? null : n)}
         accent={ROSE} accentDp={ROSE_DEEP}
-        imagePaths={SKIN_STAGE_IMAGES}
+        imagePaths={stageImages}
         imageAltPrefix="Skin concern"
       />
       <div className="contact-message">
-        <Field label="Message" placeholder="Describe your skin concern in detail" as="textarea" accent={ROSE} />
+        <Field label="Message" placeholder="Describe your skin concern in detail" as="textarea" accent={ROSE} value={values.message} onChange={v => onChange("message", v)} />
       </div>
     </div>
   );
 }
 
-/* ══════════════════════════════════════════════════
-   MAIN SECTION
-══════════════════════════════════════════════════ */
+
+const EMPTY_FORM: FormFields = { name: "", phone: "", email: "", concern: "", stage: null, message: "" };
+
 export default function ContactSection() {
   const [formType, setFormType] = useState<"hair" | "skin">("hair");
   const [btnHover, setBtnHover] = useState(false);
+  const [fields, setFields] = useState<FormFields>(EMPTY_FORM);
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [fieldError, setFieldError] = useState("");
 
   const isHair   = formType === "hair";
   const accent   = isHair ? SAGE      : ROSE;
   const accentDp = isHair ? SAGE_DEEP : ROSE_DEEP;
-  const contactImage = isHair ? HAIR_CONTACT_IMAGE : SKIN_CONTACT_IMAGE;
-  const contactImageAlt = isHair ? "Hair treatment consultation" : "Skin treatment consultation";
+
+  const handleChange = (k: keyof FormFields, v: any) => {
+    setFields(f => ({ ...f, [k]: v }));
+    setFieldError("");
+    setStatus("idle");
+  };
+
+  const handleFormTypeChange = (t: "hair" | "skin") => {
+    setFormType(t);
+    setFields(EMPTY_FORM);
+    setStatus("idle");
+    setFieldError("");
+  };
+
+  const handleSubmit = async () => {
+    if (!fields.name.trim() || !fields.phone.trim()) {
+      setFieldError("Name and phone number are required.");
+      return;
+    }
+    setSubmitting(true);
+    setFieldError("");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fields.name.trim(),
+          phone: fields.phone.trim(),
+          email: fields.email.trim() || undefined,
+          treatment: fields.concern || undefined,
+          message: [fields.message, fields.stage ? `Selected Stage: ${fields.stage}` : ""].filter(Boolean).join(" | ") || undefined,
+          source: "Website",
+          formName: isHair ? "hair consultation" : "skin consultation",
+          consent: true,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) { window.location.href = isHair ? "/thank-you-hair" : "/thank-you-skin"; }
+      else setStatus("error");
+    } catch { setStatus("error"); }
+    finally { setSubmitting(false); }
+  };
 
   return (
     <section id="contact" style={{
@@ -408,7 +464,7 @@ export default function ContactSection() {
           margin: "0 auto",
         }}>
 
-          {/* ── FORM PANEL ── */}
+          {/* ── HAIR FORM PANEL ── */}
           <div style={{
             background: "rgba(255,255,255,0.03)",
             border: "1px solid rgba(255,255,255,0.08)",
@@ -435,40 +491,30 @@ export default function ContactSection() {
             }} />
 
             {/* ── PILL TAB SWITCHER ── */}
-            <div style={{
-              position: "relative", zIndex: 1,
-              display: "flex", justifyContent: "center",
-              padding: "16px 22px 0",
-            }}>
+            <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", padding: "16px 22px 0", overflowX: "auto" }}>
               <div style={{
-                display: "inline-flex",
+                display: "inline-flex", flexShrink: 0,
                 background: "rgba(255,255,255,0.05)",
                 border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "999px",
-                padding: "5px",
-                gap: "4px",
+                borderRadius: "999px", padding: "5px", gap: "4px",
               }}>
                 {(["hair", "skin"] as const).map(cat => {
                   const active = formType === cat;
-                  const col    = cat === "hair" ? SAGE : ROSE;
-                  const colDp  = cat === "hair" ? SAGE_DEEP : ROSE_DEEP;
+                  const col   = cat === "hair" ? SAGE      : ROSE;
+                  const colDp = cat === "hair" ? SAGE_DEEP : ROSE_DEEP;
                   return (
                     <button
                       key={cat}
-                      onClick={() => setFormType(cat)}
+                      onClick={() => handleFormTypeChange(cat)}
                       style={{
                         padding: "8px 22px", borderRadius: "999px",
                         border: "none", outline: "none", cursor: "pointer",
-                        background: active
-                          ? `linear-gradient(135deg, ${colDp}, ${col})`
-                          : "transparent",
+                        background: active ? `linear-gradient(135deg, ${colDp}, ${col})` : "transparent",
                         color: active ? "#fff" : "rgba(255,253,250,0.42)",
                         fontSize: "var(--fs-eyebrow)", fontWeight: 700,
                         letterSpacing: "0.12em", textTransform: "uppercase",
                         transition: "all 0.28s cubic-bezier(0.22,1,0.36,1)",
-                        boxShadow: active
-                          ? `0 4px 18px ${cat === "hair" ? "rgba(94,154,113,0.45)" : "rgba(200,107,155,0.45)"}`
-                          : "none",
+                        boxShadow: active ? `0 4px 18px ${cat === "hair" ? "rgba(94,154,113,0.45)" : "rgba(200,107,155,0.45)"}` : "none",
                         display: "flex", alignItems: "center", gap: "7px",
                       }}
                     >
@@ -487,46 +533,46 @@ export default function ContactSection() {
 
             {/* ── FORM BODY ── */}
             <div className="contact-form-body" style={{ position: "relative", zIndex: 1, padding: "18px 22px 22px" }}>
-              {isHair ? <HairForm /> : <SkinForm />}
+              {isHair
+                ? <HairForm values={fields} onChange={handleChange} />
+                : <SkinForm values={fields} onChange={handleChange} />
+              }
 
-              {/* submit row */}
+              {fieldError && <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#f87171" }}>{fieldError}</p>}
+              {status === "success" && <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#4ade80" }}>Thank you! We will contact you soon.</p>}
+              {status === "error"   && <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#f87171" }}>Something went wrong. Please try again.</p>}
+
               <div className="contact-submit-row" style={{
                 display: "flex", alignItems: "center",
                 justifyContent: "space-between", gap: "12px",
-                flexWrap: "wrap", marginTop: "16px",
-                paddingTop: "16px",
+                flexWrap: "wrap", marginTop: "16px", paddingTop: "16px",
                 borderTop: "1px solid rgba(255,255,255,0.07)",
               }}>
                 <p style={{ margin: 0, fontSize: "var(--fs-small)", lineHeight: 1.6, color: "rgba(255,253,250,0.3)", maxWidth: "300px" }}>
                   Our team will contact you to confirm a convenient consultation slot.
                 </p>
                 <button
-                  type="button"
-                  onClick={() => window.dispatchEvent(new Event("open-consultation-popup"))}
-                  onMouseEnter={() => setBtnHover(true)}
-                  onMouseLeave={() => setBtnHover(false)}
+                  type="button" onClick={handleSubmit} disabled={submitting}
+                  onMouseEnter={() => setBtnHover(true)} onMouseLeave={() => setBtnHover(false)}
                   style={{
-                    background: btnHover
-                      ? `linear-gradient(135deg, ${accentDp}, ${accent})`
-                      : "transparent",
-                    color: btnHover ? "#ffffff" : accent,
-                    border: `2px solid ${btnHover ? accent : "rgba(255,255,255,0.2)"}`,
-                    borderRadius: "8px",
-                    padding: "10px 22px",
+                    background: btnHover && !submitting ? `linear-gradient(135deg, ${accentDp}, ${accent})` : "transparent",
+                    color: btnHover && !submitting ? "#ffffff" : accent,
+                    border: `2px solid ${btnHover && !submitting ? accent : "rgba(255,255,255,0.2)"}`,
+                    borderRadius: "8px", padding: "10px 22px",
                     fontSize: "var(--fs-eyebrow)", fontWeight: 700,
                     letterSpacing: "0.14em", textTransform: "uppercase",
-                    cursor: "pointer",
-                    transition: "all 0.22s",
-                    boxShadow: btnHover
-                      ? `0 8px 24px ${isHair ? "rgba(94,154,113,0.4)" : "rgba(200,107,155,0.4)"}`
-                      : "none",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    opacity: submitting ? 0.6 : 1, transition: "all 0.22s",
+                    boxShadow: btnHover && !submitting ? `0 8px 24px ${isHair ? "rgba(94,154,113,0.4)" : "rgba(200,107,155,0.4)"}` : "none",
                     display: "inline-flex", alignItems: "center", gap: "8px",
                   }}
                 >
-                  Send Enquiry
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  {submitting ? "Sending..." : "Send Enquiry"}
+                  {!submitting && (
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>
@@ -536,35 +582,14 @@ export default function ContactSection() {
 
       <style>{`
         @media (max-width: 767px) {
-          .contact-inner {
-            padding: 0 16px !important;
-          }
-          .contact-heading {
-            margin-bottom: 18px !important;
-          }
-          .contact-field-grid {
-            grid-template-columns: 1fr !important;
-            gap: 8px !important;
-          }
-          .contact-form-body {
-            padding: 14px 12px 16px !important;
-          }
-          .contact-form-stack {
-            gap: 8px !important;
-          }
-          .contact-submit-row {
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 10px !important;
-          }
-          .contact-submit-row button {
-            width: 100% !important;
-            justify-content: center !important;
-          }
-          .contact-submit-row p {
-            max-width: 100% !important;
-            text-align: center !important;
-          }
+          .contact-inner { padding: 0 16px !important; }
+          .contact-heading { margin-bottom: 18px !important; }
+          .contact-field-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+          .contact-form-body { padding: 14px 12px 16px !important; }
+          .contact-form-stack { gap: 8px !important; }
+          .contact-submit-row { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+          .contact-submit-row button { width: 100% !important; justify-content: center !important; }
+          .contact-submit-row p { max-width: 100% !important; text-align: center !important; }
         }
       `}</style>
     </section>

@@ -507,7 +507,7 @@ export default function Review() {
                   fontSize: "var(--fs-eyebrow)",
                   letterSpacing: "0.26em",
                   textTransform: "uppercase",
-                  color: "#a94d7f",
+                  color: "#b72c78",
                   fontWeight: 700,
                 }}
               >
@@ -561,7 +561,7 @@ export default function Review() {
               aria-label="Next review slide"
               style={{
                 border: "1px solid rgba(200,107,155,0.22)",
-                color: "#a94d7f",
+                color: "#b72c78",
                 ...arrowButtonBase,
               }}
             >
@@ -691,7 +691,7 @@ export default function Review() {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              background: btnHover ? "#a94d7f" : "transparent",
+              background: btnHover ? "#b72c78" : "transparent",
               color: btnHover ? "#ffffff" : "#5e9a71",
               border: "2.5px solid #5e9a71",
               borderRadius: 0,

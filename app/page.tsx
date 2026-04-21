@@ -22,6 +22,7 @@ export default function Home() {
       <Navbar />
       <BannerSection />
       <BeforeAfterSection />
+      <TrustSection />
       <Specialists />
       <Treatments />
       <HairLossStage />

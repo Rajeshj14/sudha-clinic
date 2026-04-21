@@ -5,7 +5,7 @@ import TrustSection from "./trustsection";
 
 const SAGE = "#5e9a71";
 const ROSE = "#c86b9b";
-const ROSE_DEEP = "#a94d7f";
+const ROSE_DEEP = "#b72c78";
 
 const LEFT_ITEMS = [
   { num: "01", label: "In-Depth Consultation" },
@@ -448,15 +448,23 @@ export default function HolisticApproach() {
               onMouseEnter={() => setBtnHover(true)}
               onMouseLeave={() => setBtnHover(false)}
               style={{
-                background: btnHover ? ROSE_DEEP : "transparent",
-                color: btnHover ? "#ffffff" : SAGE,
-                border: `1.5px solid ${SAGE}`,
-                borderRadius: 0,
-                padding: "10px 26px",
-                fontSize: "11px", fontWeight: 600,
-                letterSpacing: "0.14em", textTransform: "uppercase",
-                cursor: "pointer", textDecoration: "none",
-                transition: "background 0.18s, color 0.18s, border-color 0.18s",
+                display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: btnHover ? "#b72c78" : "transparent",
+              color: btnHover ? "#ffffff" : "#5e9a71",
+              border: "2.5px solid #5e9a71",
+              borderRadius: 0,
+              padding: "10px 24px",
+              fontSize: "var(--fs-eyebrow)",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              textDecoration: "none",
+              transition: "background 0.18s, color 0.18s",
+              outline: "1.5px solid rgba(94,154,113,0.24)",
+              outlineOffset: "5px",
               }}
             >
               Book Consultation
@@ -464,7 +472,7 @@ export default function HolisticApproach() {
           </div>
         </div>
 
-        <TrustSection />
+
       </section>
     </>
   );

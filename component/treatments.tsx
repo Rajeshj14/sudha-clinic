@@ -192,6 +192,8 @@ export default function Treatments() {
   const [catIdx, setCatIdx] = useState(0);
   const [fading, setFading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [btnHover, setBtnHover] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const startRef = useRef<number>(Date.now());
   const rafRef = useRef<number>(0);
 
@@ -270,7 +272,7 @@ export default function Treatments() {
           <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"10px" }}>
             <span style={{ display:"block", width:"36px", height:"3px", background:"#5e9a71" }}/>
             <span style={{ fontSize:"var(--fs-eyebrow)", letterSpacing:"0.26em", textTransform:"uppercase",
-              color:"#a94d7f", fontWeight:700 }}>
+              color:"#b72c78", fontWeight:700 }}>
               Our Expertise
             </span>
           </div>
@@ -291,15 +293,21 @@ export default function Treatments() {
           borderBottom:"1px solid rgba(94,154,113,0.14)" }}>
           {CATEGORIES.map((c, i) => {
             const active = i === catIdx;
+            const hovered = hoveredCategory === c.id;
             return (
-              <button key={c.id} onClick={() => switchTo(i)} style={{
+              <button
+                key={c.id}
+                onClick={() => switchTo(i)}
+                onMouseEnter={() => setHoveredCategory(c.id)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                style={{
                 background:"transparent", border:"none",
                 padding:"10px 22px 12px",
                 fontSize:"var(--fs-small)", fontWeight:900,
                 letterSpacing:"0.18em", textTransform:"uppercase",
                 cursor:"pointer",
-                color: active ? "#241f21" : "#8a7f74",
-                borderBottom: active ? `2.5px solid ${c.accent}` : "2.5px solid transparent",
+                color: hovered ? "#b72c78" : active ? "#241f21" : "#8a7f74",
+                borderBottom: active || hovered ? "2.5px solid #b72c78" : "2.5px solid transparent",
                 marginBottom:"-1px",
                 transition:"color 0.2s, border-color 0.2s",
               }}>
@@ -333,30 +341,32 @@ export default function Treatments() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
-          <a
-            href="#contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "transparent",
-              color: "#5e9a71",
-              border: "2.5px solid #5e9a71",
-              borderRadius: 0,
-              padding: "10px 24px",
-              fontSize: "var(--fs-eyebrow)",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              textDecoration: "none",
-              transition: "background 0.18s, color 0.18s",
-              outline: "1.5px solid rgba(94,154,113,0.24)",
-              outlineOffset: "5px",
-            }}
-          >
-            Book Consultation
-          </a>
+                        <a
+                href="#contact"
+                className="banner-cta"
+                onMouseEnter={() => setBtnHover(true)}
+                onMouseLeave={() => setBtnHover(false)}
+                style={{
+                  background: btnHover ? "#b72c78" : "#5e9a71",
+                  color: btnHover ? "#ffffff" : "#ffffff",
+                  border: "2.5px solid #5e9a71",
+                  borderRadius: 0,
+                  padding: "13px 30px",
+                  fontSize: "var(--fs-eyebrow)",
+                  fontWeight: 750,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  width: "fit-content",
+                  transition: "background 0.18s, color 0.18s",
+                  outline: "1.5px solid rgba(94,154,113,0.24)",
+                  outlineOffset: "5px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                Book Consultation
+              </a>
         </div>
       </div>
 

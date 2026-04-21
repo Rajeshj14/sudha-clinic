@@ -58,7 +58,7 @@ export default function BeforeAfterSection() {
 
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#a94d7f] sm:text-[12px] sm:tracking-[0.32em]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#b72c78] sm:text-[12px] sm:tracking-[0.32em]">
             Before & After
           </p>
           <h2 className="mt-2 text-[clamp(25px,7vw,36px)] font-bold leading-[1.12] tracking-[-0.3px] text-[#241f21] sm:mt-3">
@@ -108,7 +108,7 @@ export default function BeforeAfterSection() {
 
                   <div className="flex items-center">
                     <div className="w-full rounded-[1.35rem] border border-[#5e9a71]/12 bg-white/70 p-4 shadow-[0_16px_38px_rgba(36,31,33,0.08)] backdrop-blur sm:rounded-[2rem] sm:p-6 sm:shadow-[0_20px_50px_rgba(36,31,33,0.08)]">
-                      <div className="inline-flex rounded-full bg-[#f3e1ea] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#a94d7f] sm:px-4 sm:py-2 sm:text-[11px]">
+                      <div className="inline-flex rounded-full bg-[#f3e1ea] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#b72c78] sm:px-4 sm:py-2 sm:text-[11px]">
                         Case Study
                       </div>
                       <h3 className="mt-3 text-[22px] font-bold leading-[1.15] text-[#241f21] sm:mt-4 sm:text-[26px]">
@@ -129,7 +129,7 @@ export default function BeforeAfterSection() {
                         </div>
 
                         <div className="rounded-2xl border border-[#c86b9b]/12 bg-[#fbf0f5] px-3 py-3 sm:px-4">
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#a94d7f] sm:text-[11px]">
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#b72c78] sm:text-[11px]">
                             Outcome
                           </p>
                           <p className="mt-2 text-[13px] leading-[1.5] text-[#3f3a3d] sm:text-[14px]">

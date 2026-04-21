@@ -7,7 +7,7 @@ const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 const SAGE = "#5e9a71";
 const SAGE_DEEP = "#4f8562";
 const ROSE = "#c86b9b";
-const ROSE_DEEP = "#a94d7f";
+const ROSE_DEEP = "#b72c78";
 const SK_BASE = "#f2c8a8";
 const SK_HOV = "#f5d0b4";
 const HR_BASE = "#2a1c10";
@@ -397,6 +397,45 @@ function BookingPopup({
   const accent = isHair ? SAGE : ROSE;
   const accentDp = isHair ? SAGE_DEEP : ROSE_DEEP;
   const [btnHov, setBtnHov] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [fieldError, setFieldError] = useState("");
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !phone.trim()) {
+      setFieldError("Name and phone number are required.");
+      return;
+    }
+    setSubmitting(true);
+    setFieldError("");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          city: city.trim() || undefined,
+          message: `Stage ${info.stage} — ${info.desc}`,
+          source: "Website",
+          formName: isHair ? "hair consultation" : "skin consultation",
+          consent: true,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = isHair ? "/thank-you-hair" : "/thank-you-skin";
+      } else {
+        setFieldError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setFieldError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -572,54 +611,60 @@ function BookingPopup({
             gap: "12px",
           }}
         >
-          {[
-            { label: "Full Name", placeholder: "Enter your name", type: "text" },
-            { label: "Phone Number", placeholder: "Enter your number", type: "tel" },
-            { label: "Location / City", placeholder: "Your city or area", type: "text" },
-          ].map((f) => (
-            <label key={f.label} style={{ display: "block" }}>
-              <span
-                style={{
-                  display: "block",
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: accentDp,
-                  marginBottom: "6px",
-                }}
-              >
-                {f.label}
-              </span>
-              <input placeholder={f.placeholder} type={f.type} style={inputStyle} />
-            </label>
-          ))}
+          <label style={{ display: "block" }}>
+            <span style={{ display: "block", fontSize: "10px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: accentDp, marginBottom: "6px" }}>
+              Full Name
+            </span>
+            <input placeholder="Enter your name" type="text" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
+          </label>
 
-          <a
-            href="#contact"
+          <label style={{ display: "block" }}>
+            <span style={{ display: "block", fontSize: "10px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: accentDp, marginBottom: "6px" }}>
+              Phone Number
+            </span>
+            <input placeholder="Enter your number" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />
+          </label>
+
+          <label style={{ display: "block" }}>
+            <span style={{ display: "block", fontSize: "10px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: accentDp, marginBottom: "6px" }}>
+              Location / City
+            </span>
+            <input placeholder="Your city or area" type="text" value={city} onChange={(e) => setCity(e.target.value)} style={inputStyle} />
+          </label>
+
+          {fieldError && (
+            <p style={{ margin: 0, fontSize: "11px", color: "#f87171", textAlign: "center" }}>
+              {fieldError}
+            </p>
+          )}
+
+          <button
+            onClick={handleSubmit}
+            disabled={submitting}
             onMouseEnter={() => setBtnHov(true)}
             onMouseLeave={() => setBtnHov(false)}
             style={{
               marginTop: "6px",
               width: "100%",
               padding: "14px",
-              background: btnHov ? accentDp : accent,
+              background: submitting ? "rgba(255,255,255,0.1)" : btnHov ? accentDp : accent,
               color: "#fff",
               borderRadius: "10px",
               fontSize: "var(--fs-eyebrow)",
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              cursor: "pointer",
-              textDecoration: "none",
+              cursor: submitting ? "not-allowed" : "pointer",
+              border: "none",
+              outline: "none",
               display: "block",
               textAlign: "center",
               transition: "background 0.18s",
-              boxShadow: `0 8px 24px ${isHair ? "rgba(94,154,113,0.35)" : "rgba(200,107,155,0.35)"}`,
+              boxShadow: submitting ? "none" : `0 8px 24px ${isHair ? "rgba(94,154,113,0.35)" : "rgba(200,107,155,0.35)"}`,
             }}
           >
-            Book Consultation
-          </a>
+            {submitting ? "Submitting..." : "Book Consultation"}
+          </button>
 
           <p
             style={{
